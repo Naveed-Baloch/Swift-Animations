@@ -8,25 +8,18 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var animationAmount = 1.0
-    
+
+    @State private var enabled = false
     var body: some View {
         Button("Tap Me") {
-            animationAmount += 1
+            enabled.toggle()
         }
-        .padding(50)
-        .background(.red)
+        .frame(width: 200, height: 200)
+        .background(enabled ? .blue : .red)
+        .animation(.default, value: enabled)
         .foregroundStyle(.white)
-        .clipShape(.circle)
-        .scaleEffect(animationAmount)
-        
-        .animation(
-            .default.repeatForever(), value: animationAmount
-        )
-        .onAppear {
-            animationAmount = 2
-        }
-        
+        .clipShape(.rect(cornerRadius: enabled ? 60 : 30))
+        .animation(.spring(duration: 1, bounce: 0.6), value: enabled)
     }
 }
 
