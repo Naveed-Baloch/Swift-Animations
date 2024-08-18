@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var animationAmount = 1.0
+    
     var body: some View {
         Button("Tap Me") {
             animationAmount += 1
@@ -18,8 +19,14 @@ struct ContentView: View {
         .foregroundStyle(.white)
         .clipShape(.circle)
         .scaleEffect(animationAmount)
-    
-        .animation(.smooth(duration: 1), value: animationAmount)
+        
+        .animation(
+            .default.repeatForever(), value: animationAmount
+        )
+        .onAppear {
+            animationAmount = 2
+        }
+        
     }
 }
 
